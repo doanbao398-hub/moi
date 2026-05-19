@@ -122,13 +122,13 @@ body {
   white-space: nowrap;
 }
 .letter-img {
-  width: 80px;
+  width: 160px;
   height: auto;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
   z-index: 3;
 }
 .anchored-pet {
-  width: 65px;
+  width: 100px;
   margin-top: -15px;
   z-index: 2;
   animation: floatPet 2s infinite alternate;
@@ -200,7 +200,7 @@ body {
   cursor: pointer;
 }
 
-/* === MÀN HÌNH LOGIN VÀ CHỌN THIẾT BỊ === */
+/* === OVERLAY & UTILITIES === */
 .premium-glass-box {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(25px);
@@ -287,7 +287,6 @@ body {
   transform: scale(1.05);
 }
 
-/* === HIỆU ỨNG THƯ CỦA CHỦ TIỆC (PHÓNG TO LỚN) === */
 .host-letter-container {
   position: relative;
   display: flex;
@@ -356,7 +355,6 @@ body {
   color: #ffb7d2;
 }
 
-/* === HẠT RƠI VÀ PHÁO HOA === */
 .particle-falling {
   position: fixed;
   top: -10%;
@@ -386,7 +384,6 @@ body {
   z-index: 900;
 }
 
-/* === OVERLAY & UTILITIES === */
 .nav-btn {
   background: transparent;
   border: none;
@@ -628,8 +625,24 @@ body {
 }
 
 /* =========================================
-   GIAO DIỆN ĐIỆN THOẠI (KÍCH HOẠT KHI BẤM CHỌN "DÙNG ĐIỆN THOẠI")
+   GIAO DIỆN ĐIỆN THOẠI (NÂNG CẤP TỐI ƯU CỰC TỐT)
 ========================================= */
+/* Thu nhỏ toàn bộ video vào khu vực nhìn thấy */
+body.mobile-mode .video-background {
+  object-fit: contain;
+  background-color: #000;
+}
+
+/* Đồng bộ khu vực xuất hiện của thư (tree-zone) tỷ lệ chuẩn 16:9 
+   để thư tuyệt đối không bị dính vào phần viền đen của video */
+body.mobile-mode .tree-zone {
+  height: 56.25vw;
+  max-height: 100vh;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0 auto;
+}
+
 body.mobile-mode .glass-nav {
   flex-direction: column;
   gap: 10px;
@@ -638,10 +651,23 @@ body.mobile-mode .glass-nav {
   top: 10px;
   width: 90%;
 }
-body.mobile-mode .nav-left,
+/* Canh giữa 2 nút Trang Chủ và Gacha sát nhau y hệt PC */
+body.mobile-mode .nav-left {
+  width: 100%;
+  justify-content: center; /* Bạn có thể đổi thành flex-start nếu muốn nó dạt sang trái */
+  gap: 10px;
+}
+
+/* Thanh thông tin User và nút Đăng xuất vẫn giữ 2 góc để cho đẹp */
 body.mobile-mode .nav-right {
   width: 100%;
   justify-content: space-between;
+}
+
+/* Thu nhỏ font một xíu để 2 nút nằm trên mobile không bị chật */
+body.mobile-mode .nav-btn {
+  font-size: 13px;
+  padding: 6px 12px;
 }
 body.mobile-mode .user-profile {
   font-size: 13px;
@@ -656,7 +682,7 @@ body.mobile-mode .login-logo {
   width: 60px;
 }
 
-/* Tối ưu ô nhập lời chúc cho Mobile */
+/* Tối ưu ô nhập lời chúc cho Mobile - Không lấn chiếm viền dưới */
 body.mobile-mode .glass-input-wrapper {
   flex-wrap: wrap;
   bottom: 15px;
@@ -682,10 +708,12 @@ body.mobile-mode #sendBtn {
   padding: 12px;
 }
 
-/* Thu nhỏ sổ nhật ký */
+/* Thu nhỏ Sổ Nhật Ký và thêm Scroll nếu nội dung dài */
 body.mobile-mode .diary-book {
   padding: 20px 15px;
   border-left-width: 10px;
+  max-height: 85vh;
+  overflow-y: auto;
 }
 body.mobile-mode .diary-header h3 {
   font-size: 18px;
@@ -702,7 +730,7 @@ body.mobile-mode .diary-lines {
   );
 }
 
-/* Thu nhỏ Gacha và Thư */
+/* Thu nhỏ Gacha */
 body.mobile-mode .wheel-box {
   width: 220px;
   height: 220px;
@@ -714,19 +742,20 @@ body.mobile-mode .gacha-container {
   padding: 20px 15px;
   width: 90%;
 }
+
+/* Khống chế thư thu nhỏ lại để không chiếm quá nhiều diện tích màn hình đt */
 body.mobile-mode .letter-img {
-  width: 50px;
+  width: 90px;
 }
 body.mobile-mode .anchored-pet {
-  width: 50px;
-  margin-top: -8px;
+  width: 60px;
+  margin-top: -10px;
 }
 body.mobile-mode .tag {
-  font-size: 11px;
-  padding: 4px 8px;
+  font-size: 10px;
+  padding: 3px 6px;
 }
 
-/* Thư chủ tiệc */
 body.mobile-mode .glow-close {
   top: 2%;
   right: 2%;
