@@ -1,0 +1,740 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  width: 100vw;
+  height: 100vh;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  overflow: hidden;
+  background-color: #000;
+}
+.main-bg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+.tree-zone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* === THANH ĐIỀU HƯỚNG MỚI === */
+.glass-nav {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
+  max-width: 900px;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  padding: 10px 20px;
+  border-radius: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+.nav-left,
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 5px 15px 5px 5px;
+  border-radius: 30px;
+}
+.avatar-img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ffb7d2;
+}
+.btn-logout {
+  background: rgba(255, 71, 87, 0.8) !important;
+}
+.btn-logout:hover {
+  background: #ff4757 !important;
+}
+
+/* === HIỆU ỨNG THƯ & PET LẮC LƯ === */
+.hanging-letter {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: auto;
+  cursor: pointer;
+  transform-origin: top center;
+  animation: swing 4s infinite ease-in-out alternate;
+}
+.hanging-letter:nth-child(even) {
+  animation-duration: 4.8s;
+  animation-direction: alternate-reverse;
+}
+.hanging-letter:nth-child(3n) {
+  animation-duration: 5.5s;
+}
+@keyframes swing {
+  0% {
+    transform: rotate(-5deg) translateY(0);
+  }
+  100% {
+    transform: rotate(5deg) translateY(-4px);
+  }
+}
+
+.tag {
+  background: #ffffff;
+  color: #d6336c;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin-bottom: 5px;
+  border: 1.5px dashed #ffb7d2;
+  white-space: nowrap;
+}
+.letter-img {
+  width: 80px;
+  height: auto;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  z-index: 3;
+}
+.anchored-pet {
+  width: 65px;
+  margin-top: -15px;
+  z-index: 2;
+  animation: floatPet 2s infinite alternate;
+}
+.pet-name-label {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-top: 3px;
+}
+@keyframes floatPet {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(3px);
+  }
+}
+
+/* === THANH NHẬP LỜI CHÚC === */
+.glass-input-wrapper {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(45, 45, 45, 0.5);
+  padding: 8px;
+  border-radius: 50px;
+  backdrop-filter: blur(8px);
+  width: 90%;
+  max-width: 700px;
+  z-index: 100;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.pet-dropdown,
+.pet-name-input {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 8px;
+  border-radius: 20px;
+  outline: none;
+  font-size: 13px;
+}
+.pet-dropdown option {
+  color: #333;
+}
+#wishInput {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 15px;
+  padding-left: 10px;
+  outline: none;
+}
+.btn-glow-small {
+  background: linear-gradient(45deg, #ff6b81, #ff4757);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* === MÀN HÌNH LOGIN VÀ CHỌN THIẾT BỊ === */
+.premium-glass-box {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 25px;
+  padding: 40px 30px;
+  width: 90%;
+  max-width: 420px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+.login-logo {
+  width: 80px;
+  animation: float 3s ease-in-out infinite;
+  margin-bottom: 15px;
+}
+.premium-glass-box h2 {
+  font-size: 26px;
+  color: #ffb7d2;
+  text-shadow: 0 2px 10px rgba(255, 183, 210, 0.5);
+  margin-bottom: 5px;
+}
+.input-group {
+  margin: 25px 0;
+}
+#usernameInput {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 16px;
+  outline: none;
+  text-align: center;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+}
+#usernameInput::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+#usernameInput:focus {
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid #ffb7d2;
+}
+.btn-glow {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 15px;
+  background: linear-gradient(45deg, #ff6b81, #ff4757);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 5px 15px rgba(255, 107, 129, 0.4);
+}
+.btn-glow:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 107, 129, 0.6);
+}
+.host-section {
+  margin-top: 25px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 15px;
+  font-size: 14px;
+}
+.btn-text {
+  background: none;
+  border: none;
+  color: #ffb7d2;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-top: 5px;
+}
+.btn-text:hover {
+  color: white;
+  text-shadow: 0 0 10px #ffb7d2;
+  transform: scale(1.05);
+}
+
+/* === HIỆU ỨNG THƯ CỦA CHỦ TIỆC (PHÓNG TO LỚN) === */
+.host-letter-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.host-env {
+  width: 90%;
+  max-width: 650px;
+  cursor: pointer;
+  transition: 0.3s;
+  z-index: 10;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
+}
+.pulse-anim {
+  animation: pulseGlow 2s infinite alternate;
+}
+@keyframes pulseGlow {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 15px #ffb7d2);
+  }
+  100% {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 40px #ff6b81);
+  }
+}
+.host-content {
+  position: absolute;
+  width: 95%;
+  max-width: 800px;
+  z-index: 11;
+  border-radius: 15px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+}
+.fly-out-anim {
+  animation: flyOut 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+@keyframes flyOut {
+  0% {
+    transform: translateY(50px) scale(0.2);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-30px) scale(1);
+    opacity: 1;
+  }
+}
+.glow-close {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  font-size: 50px;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 20;
+  text-shadow: 0 0 15px red;
+  transition: 0.3s;
+}
+.glow-close:hover {
+  transform: scale(1.2) rotate(90deg);
+  color: #ffb7d2;
+}
+
+/* === HẠT RƠI VÀ PHÁO HOA === */
+.particle-falling {
+  position: fixed;
+  top: -10%;
+  pointer-events: none;
+  z-index: 99;
+  animation: fallDown 3s linear forwards;
+  font-size: 24px;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+}
+@keyframes fallDown {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+#fireworksCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 900;
+}
+
+/* === OVERLAY & UTILITIES === */
+.nav-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.nav-btn:hover,
+.nav-btn.active {
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+.overlay,
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.4s ease;
+  backdrop-filter: blur(8px);
+}
+.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.cute-pink-box {
+  background: #fff0f5;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  border: 3px solid #ffb7d2;
+}
+.btn-pink {
+  background: #ff6b81;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.btn-pink:hover {
+  background: #ff4757;
+}
+.btn-red {
+  background: #ff4757;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.btn-gray {
+  background: #aaa;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* === SỔ NHẬT KÝ (DIARY MODAL) === */
+.diary-book {
+  background: #fffdf0;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow:
+    -10px 10px 30px rgba(0, 0, 0, 0.5),
+    inset -5px 0 10px rgba(255, 183, 210, 0.2);
+  padding: 40px;
+  position: relative;
+  transform: translateY(50px) rotate(-5deg) scale(0.8);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border-left: 15px solid #ffb7d2;
+}
+.modal.active .diary-book {
+  transform: translateY(0) rotate(0) scale(1);
+}
+.diary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #ffb7d2;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+.diary-header h3 {
+  color: #d6336c;
+  font-family: "Comic Sans MS", cursive;
+  font-size: 22px;
+}
+.diary-pet-icon {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+.diary-lines {
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 29px,
+    #ffb7d2 29px,
+    #ffb7d2 30px
+  );
+  line-height: 30px;
+  font-size: 18px;
+  color: #444;
+  font-family: "Comic Sans MS", cursive;
+  min-height: 150px;
+}
+#editWishInput {
+  width: 100%;
+  min-height: 150px;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 30px;
+  outline: none;
+  resize: none;
+  color: #d6336c;
+}
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 30px;
+  color: #ffb7d2;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.close-btn:hover {
+  color: #ff4757;
+}
+
+/* === VÒNG QUAY GACHA === */
+.gacha-container {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  border: 4px solid #ffb7d2;
+  box-shadow: 0 0 40px rgba(255, 183, 210, 0.8);
+}
+.gacha-container h2 {
+  color: #ff6b81;
+  margin-bottom: 5px;
+}
+.wheel-box {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 20px auto;
+}
+.wheel {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  border: 5px solid #ff6b81;
+  background: conic-gradient(
+    #fff0f5 0deg 90deg,
+    #ffe0ec 90deg 180deg,
+    #fff0f5 180deg 270deg,
+    #ffe0ec 270deg 360deg
+  );
+  transition: transform 4s cubic-bezier(0.1, 0.7, 0.1, 1);
+}
+.wheel-section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 25px;
+}
+.section-1 {
+  transform: rotate(45deg);
+}
+.section-2 {
+  transform: rotate(135deg);
+}
+.section-3 {
+  transform: rotate(225deg);
+}
+.section-4 {
+  transform: rotate(315deg);
+}
+.wheel-section img {
+  width: 65px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+}
+.wheel-pointer {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 40px;
+  color: #ff4757;
+  z-index: 10;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+.spin-btn {
+  font-size: 20px;
+  padding: 15px 40px;
+  margin-bottom: 10px;
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* =========================================
+   GIAO DIỆN ĐIỆN THOẠI (KÍCH HOẠT KHI BẤM CHỌN "DÙNG ĐIỆN THOẠI")
+========================================= */
+body.mobile-mode .glass-nav {
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 15px;
+  border-radius: 20px;
+  top: 10px;
+  width: 90%;
+}
+body.mobile-mode .nav-left,
+body.mobile-mode .nav-right {
+  width: 100%;
+  justify-content: space-between;
+}
+body.mobile-mode .user-profile {
+  font-size: 13px;
+}
+body.mobile-mode .premium-glass-box {
+  padding: 25px 20px;
+}
+body.mobile-mode .premium-glass-box h2 {
+  font-size: 22px;
+}
+body.mobile-mode .login-logo {
+  width: 60px;
+}
+
+/* Tối ưu ô nhập lời chúc cho Mobile */
+body.mobile-mode .glass-input-wrapper {
+  flex-wrap: wrap;
+  bottom: 15px;
+  padding: 15px;
+  border-radius: 20px;
+  width: 95%;
+}
+body.mobile-mode .pet-dropdown,
+body.mobile-mode .pet-name-input {
+  flex: 1 1 45%;
+  font-size: 12px;
+  padding: 8px 5px;
+}
+body.mobile-mode #wishInput {
+  flex: 1 1 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+body.mobile-mode #sendBtn {
+  flex: 1 1 100%;
+  padding: 12px;
+}
+
+/* Thu nhỏ sổ nhật ký */
+body.mobile-mode .diary-book {
+  padding: 20px 15px;
+  border-left-width: 10px;
+}
+body.mobile-mode .diary-header h3 {
+  font-size: 18px;
+}
+body.mobile-mode .diary-lines {
+  font-size: 15px;
+  line-height: 25px;
+  min-height: 120px;
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 24px,
+    #ffb7d2 24px,
+    #ffb7d2 25px
+  );
+}
+
+/* Thu nhỏ Gacha và Thư */
+body.mobile-mode .wheel-box {
+  width: 220px;
+  height: 220px;
+}
+body.mobile-mode .wheel-section img {
+  width: 45px;
+}
+body.mobile-mode .gacha-container {
+  padding: 20px 15px;
+  width: 90%;
+}
+body.mobile-mode .letter-img {
+  width: 50px;
+}
+body.mobile-mode .anchored-pet {
+  width: 50px;
+  margin-top: -8px;
+}
+body.mobile-mode .tag {
+  font-size: 11px;
+  padding: 4px 8px;
+}
+
+/* Thư chủ tiệc */
+body.mobile-mode .glow-close {
+  top: 2%;
+  right: 2%;
+  font-size: 35px;
+}
+body.mobile-mode .host-env {
+  max-width: 90%;
+}
+body.mobile-mode .host-content {
+  max-width: 95%;
+}
