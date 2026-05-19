@@ -16,12 +16,10 @@ import {
 } from "./firebase.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  // --- ÂM THANH CƠ BẢN ---
   const bgMusic = new Audio("../hinh/nhac.mp3");
   bgMusic.loop = true;
   const clickSound = new Audio("../hinh/cute.mp3");
 
-  // Phát tiếng click khi bấm
   document.addEventListener("click", () => {
     clickSound.currentTime = 0;
     clickSound.play().catch((e) => console.log("Trình duyệt chặn click sound"));
@@ -29,7 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentUser = JSON.parse(localStorage.getItem("birthday_user")) || null;
 
-  // --- ELEMENTS ---
   const deviceSelectionOverlay = document.getElementById(
     "deviceSelectionOverlay",
   );
@@ -46,42 +43,35 @@ document.addEventListener("DOMContentLoaded", () => {
   const userAvatar = document.getElementById("userAvatar");
   const logoutBtn = document.getElementById("logoutBtn");
 
-  // Host Overlay Elements
   const hostLetterOverlay = document.getElementById("hostLetterOverlay");
   const envClosed = document.getElementById("envClosed");
   const envOpened = document.getElementById("envOpened");
   const letterFull = document.getElementById("letterFull");
   const closeHostLetter = document.getElementById("closeHostLetter");
 
-  // --- 1. LỰA CHỌN THIẾT BỊ & XỬ LÝ ĐĂNG NHẬP ---
   if (!currentUser) {
-    // Mới vào chưa đăng nhập -> Hiện bảng chọn thiết bị
     deviceSelectionOverlay.classList.add("active");
     loginOverlay.classList.remove("active");
   } else {
-    // Đã đăng nhập -> Khôi phục chế độ UI và khởi tạo app
     const savedMode = localStorage.getItem("ui_mode");
     if (savedMode === "mobile") document.body.classList.add("mobile-mode");
     initApp();
   }
 
-  // Bấm chọn PC
   btnPC.addEventListener("click", () => {
     document.body.classList.remove("mobile-mode");
     localStorage.setItem("ui_mode", "pc");
     deviceSelectionOverlay.classList.remove("active");
-    loginOverlay.classList.add("active"); // Chuyển sang đăng nhập
+    loginOverlay.classList.add("active");
   });
 
-  // Bấm chọn Điện thoại
   btnMobile.addEventListener("click", () => {
     document.body.classList.add("mobile-mode");
     localStorage.setItem("ui_mode", "mobile");
     deviceSelectionOverlay.classList.remove("active");
-    loginOverlay.classList.add("active"); // Chuyển sang đăng nhập
+    loginOverlay.classList.add("active");
   });
 
-  // Xử lý Form đăng nhập
   document.getElementById("joinBtn").addEventListener("click", () => {
     const name = usernameInput.value.trim();
     if (!name) return alert("Nhập tên để quẩy nào!");
@@ -105,7 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
       createdAt: serverTimestamp(),
     });
 
-    // --- PHÁT NHẠC TO DẦN (FADE-IN) ---
     bgMusic.volume = 0;
     bgMusic
       .play()
@@ -122,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .catch((e) => console.log("Cần tương tác để phát nhạc"));
 
-    startFireworks(); // Pháo hoa
+    startFireworks();
     loginOverlay.classList.remove("active");
 
     if (role === "host") {
@@ -132,7 +121,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // --- 2. HIỆU ỨNG THƯ RIÊNG CHO CHỦ TIỆC ---
   function showHostSequence() {
     hostLetterOverlay.classList.add("active");
 
@@ -158,7 +146,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- 3. KHỞI TẠO APP VÀ LOGOUT ---
   function initApp() {
     mainNav.style.display = "flex";
     inputWrapper.style.display = "flex";
@@ -169,7 +156,6 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       userAvatar.src = "../hinh/thư.png";
     }
-
     loadUserData();
     loadInventory();
   }
@@ -180,16 +166,13 @@ document.addEventListener("DOMContentLoaded", () => {
     location.reload();
   });
 
-  // --- 4. HIỆU ỨNG HẠT RƠI (PARTICLES) ---
   const wishInput = document.getElementById("wishInput");
   let particleInterval;
 
   wishInput.addEventListener("focus", () => {
     particleInterval = setInterval(createParticle, 300);
   });
-  wishInput.addEventListener("blur", () => {
-    clearInterval(particleInterval);
-  });
+  wishInput.addEventListener("blur", () => clearInterval(particleInterval));
 
   function createParticle() {
     const shapes = ["🍀", "⭐", "💖"];
@@ -202,7 +185,6 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => p.remove(), 3000);
   }
 
-  // --- 5. HỆ THỐNG PHÁO HOA (CANVAS) ---
   function startFireworks() {
     const canvas = document.getElementById("fireworksCanvas");
     const ctx = canvas.getContext("2d");
@@ -231,9 +213,8 @@ document.addEventListener("DOMContentLoaded", () => {
         p.y += p.vy;
         p.vy += 0.2;
         p.life -= 0.02;
-        if (p.life <= 0) {
-          particles.splice(index, 1);
-        } else {
+        if (p.life <= 0) particles.splice(index, 1);
+        else {
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
           ctx.fillStyle = p.color;
@@ -247,7 +228,6 @@ document.addEventListener("DOMContentLoaded", () => {
     animate();
   }
 
-  // --- LOGIC GACHA & THƯ ---
   const navHome = document.getElementById("navHome");
   const navGacha = document.getElementById("navGacha");
   const gachaOverlay = document.getElementById("gachaOverlay");
@@ -315,6 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
       isSpinning = false;
     }, 4000);
   });
+
   document
     .getElementById("claimPetBtn")
     .addEventListener("click", () =>
@@ -329,7 +310,8 @@ document.addEventListener("DOMContentLoaded", () => {
     );
     const querySnapshot = await getDocs(q);
     const petSelect = document.getElementById("petSelect");
-    petSelect.innerHTML = '<option value="">-- Không mang Pet --</option>';
+    petSelect.innerHTML =
+      '<option value="">-- Không mang Pet hãy gacha để có --</option>';
     querySnapshot.forEach((docSnap) => {
       const item = docSnap.data();
       const option = document.createElement("option");
@@ -346,8 +328,19 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = docSnap.data();
       const letterDiv = document.createElement("div");
       letterDiv.className = "hanging-letter";
-      letterDiv.style.top = data.position.y + "%";
-      letterDiv.style.left = data.position.x + "%";
+
+      let posX = data.position.x;
+      let posY = data.position.y;
+
+      // KHỐNG CHẾ TỌA ĐỘ KHI DÙNG MOBILE
+      // Giúp thư không lọt ra ngoài vùng mép màn hình
+      if (document.body.classList.contains("mobile-mode")) {
+        posX = Math.max(10, Math.min(posX, 75)); // Chỉ cho phép chiều ngang từ 10% đến 75%
+        posY = Math.max(10, Math.min(posY, 75)); // Chỉ cho phép chiều dọc từ 10% đến 75%
+      }
+
+      letterDiv.style.left = posX + "%";
+      letterDiv.style.top = posY + "%";
 
       let innerHTML = `<div class="tag">${data.senderName}</div><img src="../hinh/thư.png" class="letter-img" />`;
       if (data.petId) {
@@ -366,14 +359,21 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("sendBtn").addEventListener("click", async () => {
     const text = wishInput.value.trim();
     if (!text) return alert("Ghi lời chúc đi nè! 💕");
+
+    // Tự tính khoảng giới hạn sinh thư ngẫu nhiên an toàn hơn cho Mobile
+    const isMobile = document.body.classList.contains("mobile-mode");
+    const safeX = isMobile
+      ? Math.floor(Math.random() * 60) + 15
+      : Math.floor(Math.random() * 70) + 10;
+    const safeY = isMobile
+      ? Math.floor(Math.random() * 50) + 15
+      : Math.floor(Math.random() * 45) + 10;
+
     const newWish = {
       senderId: currentUser.uid,
       senderName: currentUser.username,
       content: text,
-      position: {
-        x: Math.floor(Math.random() * 70) + 10,
-        y: Math.floor(Math.random() * 45) + 10,
-      },
+      position: { x: safeX, y: safeY },
       petId: document.getElementById("petSelect").value || null,
       petName: document.getElementById("petNameInput").value.trim() || null,
       createdAt: serverTimestamp(),
